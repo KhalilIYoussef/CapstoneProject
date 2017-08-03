@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item android:title="Add Post "
     android:id="@+id/action_add"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@mipmap/ic_action_add_post"
     app:showAsAction="always"/>
+
+    <item android:title="Settings "
+        android:id="@+id/action_settings"
+        app:showAsAction="never"/>
 </menu>

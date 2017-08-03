@@ -1,4 +1,4 @@
-package khaliliyoussef.capstoneproject;
+package khaliliyoussef.capstoneproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import com.google.firebase.storage.UploadTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import khaliliyoussef.capstoneproject.model.Post;
+import khaliliyoussef.capstoneproject.R;
 
 public class PostActivity extends AppCompatActivity {
     private static final int RC_IMG_PICK = 2;
@@ -72,10 +74,10 @@ StorageReference filePath =mStorage.child("blog_images").child(pickedImageUri.ge
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
         Uri downloadUri=taskSnapshot.getDownloadUrl();
-                    DatabaseReference newPost=mDatabase.push();
-                    newPost.child("post_title").setValue(title);
-                    newPost.child("post_description").setValue(description);
-                    newPost.child("post_url").setValue(downloadUri);
+                    mDatabase.push().setValue(new Post(title,description,downloadUri.toString()));
+//                    newPost.child("post_title").setValue(title);
+//                    newPost.child("post_description").setValue(description);
+//                    newPost.child("post_url").setValue(downloadUri);
                     mProgressDialog.dismiss();
                     startActivity(new Intent(PostActivity.this,MainActivity.class));
                 }

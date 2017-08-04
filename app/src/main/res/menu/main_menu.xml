@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item android:title="Add Post "
-    android:id="@+id/action_add"
-    android:icon="@mipmap/ic_action_add_post"
-    app:showAsAction="always"/>
 
-    <item android:title="Settings "
-        android:id="@+id/action_settings"
+    <item
+        android:id="@+id/sign_out_menu"
+        android:title="@string/sign_out"
         app:showAsAction="never"/>
 </menu>

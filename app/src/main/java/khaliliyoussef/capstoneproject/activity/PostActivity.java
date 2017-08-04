@@ -63,12 +63,13 @@ ProgressDialog mProgressDialog;
 
     private void publishPost() {
         mProgressDialog.setMessage("Posting ...");
-        mProgressDialog.show();
+
         //notice we used trim() to save space while saving the data
         final String title=mPostTitle.getText().toString().trim();
         final String description=mPostDescription.getText().toString().trim();
         if(!title.isEmpty()&&!description.isEmpty()&&pickedImageUri!=null)
         {
+            mProgressDialog.show();
 StorageReference filePath =mStorage.child("blog_images").child(pickedImageUri.getLastPathSegment());
             filePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

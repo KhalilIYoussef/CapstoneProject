@@ -1,6 +1,7 @@
 package khaliliyoussef.capstoneproject.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.collapsing_toolbar_layout) CollapsingToolbarLayout mCollapsingToolbarLayout;
    @BindView(R.id.addPost_fab) FloatingActionButton fab;
     private DatabaseReference mDatabase;
-
+private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,22 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         mDatabase=FirebaseDatabase.getInstance().getReference().child("Blog");
+        mAuth=FirebaseAuth.getInstance();
 
-        PostAdapter postAdapter=new PostAdapter(Post.class,R.layout.post_list_item,
-                PostViewHolder.class,mDatabase,getBaseContext());
+        mAuthStateListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser()==null)
+                {
+Intent loginIntent =new Intent(MainActivity.this,RegisterActivity.class);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+            }
+        };
+        mAuth.addAuthStateListener(mAuthStateListener);
+
+        PostAdapter postAdapter=new PostAdapter(Post.class,R.layout.post_list_item,PostViewHolder.class,mDatabase,this);
         mRecyclerView.setAdapter(postAdapter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +89,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.action_add:
+       if (item.getItemId()==R.id.sign_out_menu)
+       {
+            signOut();
 
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
+       }
+return  super.onOptionsItemSelected(item);
+    }
 
+    private void signOut() {
+        mAuth.signOut();
     }
 }

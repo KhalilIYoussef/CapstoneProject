@@ -60,7 +60,7 @@ mProgressDialog.setMessage("adding User ...");
 mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
-if(task.isSuccessful()) {
+if(task.isSuccessful()) {//TODO (1)try to remove this
     String userId = mFirebaseAuth.getCurrentUser().getUid();
 
     mDatabaseReference.child(userId).setValue(new User(name, "default"));
@@ -69,6 +69,7 @@ if(task.isSuccessful()) {
     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(mainIntent);
 }
+
     }
 });
         }

@@ -41,7 +41,7 @@ ProgressDialog mProgressDialog;
         setContentView(R.layout.activity_post);
         ButterKnife.bind(this);
             mStorage=FirebaseStorage.getInstance().getReference();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("Blog");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("Posts");
         mProgressDialog=new ProgressDialog(this);
 
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +76,7 @@ StorageReference filePath =mStorage.child("blog_images").child(pickedImageUri.ge
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
         Uri downloadUri=taskSnapshot.getDownloadUrl();
                     mDatabase.push().setValue(new Post(title,description,downloadUri.toString()));
-//                    newPost.child("post_title").setValue(title);
-//                    newPost.child("post_description").setValue(description);
-//                    newPost.child("post_url").setValue(downloadUri);
+
                     mProgressDialog.dismiss();
                     startActivity(new Intent(PostActivity.this,MainActivity.class));
                 }

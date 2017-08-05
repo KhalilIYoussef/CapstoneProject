@@ -7,42 +7,49 @@
     android:orientation="vertical">
 
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-    <ImageView
-        android:id="@+id/list_post_image"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:adjustViewBounds="true"
+        android:layout_height="wrap_content">
 
-        android:scaleType="fitXY"
-        tools:src="@mipmap/add_btn" />
 
-        <TextView
-            android:id="@+id/list_post_title"
+        <ImageView
+            android:id="@+id/list_post_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/list_post_image"
+            android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+
+            android:scaleType="fitXY"
+            tools:src="@mipmap/add_btn" />
+
+            <TextView
+                android:id="@+id/list_post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/list_post_image"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textStyle="bold"
+                tools:text="TITLE" />
+
+        <TextView
+            android:id="@+id/list_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_post_title"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp"
-            android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            tools:text="TITLE"
-            android:textAlignment="center"/>
+            tools:text="this is a post name" />
 
-    <TextView
-        android:id="@+id/list_post_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:layout_below="@id/list_post_title"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        tools:text="this is a post name" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/ic_favorite"
+            android:layout_below="@id/list_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/btn_star_big_off" />
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

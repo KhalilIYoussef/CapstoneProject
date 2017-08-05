@@ -10,4 +10,5 @@
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="login_new_account">New Account</string>
+    <string name="empty_recipe_list">No Images Yet !</string>
 </resources>

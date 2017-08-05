@@ -21,7 +21,29 @@
         </activity>
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
+        <provider
+            android:name=".data.PikProvider"
+            android:authorities="khaliliyoussef.capstoneproject.data"
+            android:exported="false" />
+
+        <receiver android:name=".widget.RecipeAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="khaliliyoussef.capstoneproject.data.ACTION_DATA_UPDATED"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.RecipeWidgetRemoteViewsService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package khaliliyoussef.capstoneproject.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.new_account) Button loginRegister;
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
+    ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mFirebaseAuth=FirebaseAuth.getInstance();
         mDatabaseReference= FirebaseDatabase.getInstance().getReference("users");
-
+mProgressDialog =new ProgressDialog(this);
+        mProgressDialog.setMessage("checking ..");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,23 +62,25 @@ public class LoginActivity extends AppCompatActivity {
     private void loginCheck() {
 
         final String email,password;
-
         email=loginEmail.getText().toString();
         password=loginPasswod.getText().toString();
         //check if any field is not empty
         if(!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password))
         {
+            mProgressDialog.show();
 mFirebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
 if (task.isSuccessful())
 {
+    mProgressDialog.dismiss();
     //user has an account exist in (athentication database)
     //chek if he completed completed his profile (exist in Database as User)
 checkUser();
 
 }
 else {
+    mProgressDialog.dismiss();
     Toast.makeText(LoginActivity.this, "error logging in", Toast.LENGTH_SHORT).show();
 }
     }
@@ -101,7 +107,10 @@ final String user_id=mFirebaseAuth.getCurrentUser().getUid();
                 }
                 else
                     {
-                        Toast.makeText(LoginActivity.this, "Complete Profile", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(LoginActivity.this, "Complete Profile", Toast.LENGTH_SHORT).show();
+                        Intent mainIntent =new Intent(LoginActivity.this,MainActivity.class);
+                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(mainIntent);
                     }
 
             }

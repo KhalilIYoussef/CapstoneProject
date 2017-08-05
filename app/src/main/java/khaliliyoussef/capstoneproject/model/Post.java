@@ -13,7 +13,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String text, String name, String photoUrl) {
+    public Post(String text, String name, String photoUrl)
+    {
         this.title = text;
         this.description = name;
         this.photoUrl = photoUrl;

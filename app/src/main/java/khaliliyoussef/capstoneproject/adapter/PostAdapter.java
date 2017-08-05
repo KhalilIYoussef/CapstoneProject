@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -18,6 +19,8 @@ import khaliliyoussef.capstoneproject.data.PikContract;
 import khaliliyoussef.capstoneproject.model.Post;
 
 import static khaliliyoussef.capstoneproject.data.PikContract.RECIPE_CONTENT_URI;
+import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.COLUMN_POST_DESCRIPTION;
+import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.COLUMN_POST_NAME;
 
 /**
  * Created by Khalil on 8/3/2017.
@@ -68,12 +71,12 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
             if(isFavorite())
             {
                 removePostFromFavorites();
-                viewHolder.ivFavorite.setImageResource(R.drawable.ic_favorite);
+                viewHolder.ivFavorite.setImageResource(R.drawable.ic_favorite_change);
             }
             else
             {
-                removePostFromFavorites();
-                viewHolder.ivFavorite.setImageResource(R.drawable.ic_favorite);
+               addPostToFavorites();
+                viewHolder.ivFavorite.setImageResource(R.drawable.ic_favorite_change);
             }
             }
         });
@@ -85,15 +88,23 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
 
         //get all the recipes where its "id" equal the current recipe if the return cursor is null then it's not fav
         //if the cursor is not null then it's favorite
-        String[] projection = {PikContract.RecipeEntry.COLUMN_POST_NAME};
-        String selection = PikContract.RecipeEntry.COLUMN_POST_NAME + " = " + mPost.getTitle();
+        //String[] projection = {COLUMN_POST_NAME};
         Cursor cursor = context.getContentResolver().query(RECIPE_CONTENT_URI,
-                projection,
-                selection,
-                null,
-                null,
+                new String[]{COLUMN_POST_DESCRIPTION},
+                COLUMN_POST_NAME + "=?",
+                new String[]{mPost.getTitle()},
                 null);
 
+//        String selection = COLUMN_POST_NAME + " = ?" ;
+//                String [] selectionArgs={mPost.getTitle()} ;
+//        Cursor cursor = context.getContentResolver().query(RECIPE_CONTENT_URI,
+//                null,
+//                selection,
+//               selectionArgs,
+//                null,
+//                null);
+        if(cursor!=null)
+            Toast.makeText(context, "Post added", Toast.LENGTH_SHORT).show();
         return (cursor != null ? cursor.getCount() : 0) > 0;
     }
 
@@ -112,7 +123,7 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
 
         ContentValues values = new ContentValues();
 
-        values.put(PikContract.RecipeEntry.COLUMN_POST_NAME, mPost.getTitle());
+        values.put(COLUMN_POST_NAME, mPost.getTitle());
         values.put(PikContract.RecipeEntry.COLUMN_POST_DESCRIPTION, mPost.getDescription());
         values.put(PikContract.RecipeEntry.COLUMN_POST_URL, mPost.getPhotoUrl());
 

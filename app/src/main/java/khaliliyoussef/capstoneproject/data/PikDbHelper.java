@@ -18,7 +18,7 @@ public final class PikDbHelper extends SQLiteOpenHelper {
              _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_POST_NAME + " TEXT NOT NULL, " +
             COLUMN_POST_DESCRIPTION + " TEXT NOT NULL, " +
-            COLUMN_POST_URL + " TEXT NOT NULL, " +
+            COLUMN_POST_URL + " TEXT NOT NULL " +
 
             ");";
 

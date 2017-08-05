@@ -67,7 +67,8 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
 
                 final long identityToken = Binder.clearCallingIdentity();
                 //get all the recipes from the CP
-                data = getContentResolver().query(RECIPE_CONTENT_URI,
+                data = getContentResolver().query(
+                        RECIPE_CONTENT_URI,
                         RECIPE_COLUMNS,
                         null,
                         null,

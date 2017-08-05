@@ -44,16 +44,16 @@ public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
         {
             //notice RemoteViews because ordinary views won't work
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pik_club_app_widget);
-           Cursor data = context.getContentResolver().query(RECIPE_CONTENT_URI,
-                    RECIPE_COLUMNS,
-                    null,
-                    null,
-                    null,
-                    null);
-            Picasso.with(context)
-                    .load(String.valueOf(data.getString(INDEX_POST_URL)))
-                    .into(views, R.id.tv_widget_description, new int[] {appWidgetId});
-            //create an Activity upon clicking on the wiget to go to the RecipeActivity
+//           Cursor data = context.getContentResolver().query(RECIPE_CONTENT_URI,
+//                    RECIPE_COLUMNS,
+//                    null,
+//                    null,
+//                    null,
+//                    null);
+//            Picasso.with(context)
+//                    .load(String.valueOf(data.getString(INDEX_POST_URL)))
+//                    .into(views, R.id.tv_widget_description, new int[] {appWidgetId});
+//            //create an Activity upon clicking on the wiget to go to the RecipeActivity
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             //set a click listener when clicking on the widget to go to the RecipeActivity

@@ -2,17 +2,11 @@ package khaliliyoussef.capstoneproject.widget;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.Binder;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 
 import khaliliyoussef.capstoneproject.R;
 
@@ -28,10 +22,9 @@ import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.COLUMN
 // a class that extend RemoteViewsServices must implement onGetViewFactory
 public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
     // these indices must match the projection
-    static final int INDEX_POST_ID = 0;
-    static final int INDEX_Post_NAME = 1;
-    static final int INDEX_POST_DESCRIPTION = 2;
-    static final int INDEX_POST_URL = 3;
+    static final int INDEX_INDEX_POST_NAME = 0;
+    static final int INDEX_POST_DESCRIPTION = 1;
+    static final int INDEX_POST_URL = 2;
 
     private static final String[] RECIPE_COLUMNS =
                              {
@@ -100,10 +93,12 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
 
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.pik_list_item);
 
-                views.setTextViewText(R.id.iv_widget_image, data.getString(INDEX_Post_NAME));
-                views.setTextViewText(R.id.tv_widget_title, data.getString(INDEX_POST_DESCRIPTION));
-
-              //  views.setImageViewResource(R.id.tv_widget_description, String.valueOf(data.getString(INDEX_POST_URL)));
+                String Title=data.getString(INDEX_INDEX_POST_NAME);
+                views.setTextViewText(R.id.tv_widget_title, Title);
+                String Description=data.getString(INDEX_POST_DESCRIPTION);
+                views.setTextViewText(R.id.tv_widget_description, Description);
+//                views.setImageViewResource(R.id.iv_widget_image,R.mipmap.ic_launcher );
+                //String.valueOf(data.getString(INDEX_POST_URL))
 
                 views.setOnClickFillInIntent(R.id.post_item, new Intent());
                 return views;
@@ -124,7 +119,7 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
             public long getItemId(int position)
             {
                 if (data.moveToPosition(position))
-                    return data.getLong(INDEX_POST_ID);
+                    return 0;
                 return position;
             }
 

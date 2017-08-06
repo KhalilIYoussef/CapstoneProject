@@ -114,7 +114,7 @@ public class PikProvider extends ContentProvider
                 throw new UnsupportedOperationException("Unknown Uri " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
-        //TODO when data changed then send a broadcast then use that to update the widget later
+        //TODO when data changed then send a broadcast then use that to update the widget_provider later
         //Update the Widget with the data
         // Setting the package ensures that only components in our app will receive the broadcast
         Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED)

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CapstoneProject</string>
-    <string name="post_description">Post Description</string>
-    <string name="post_title">Post Title</string>
+    <string name="post_description">Story Description</string>
+    <string name="post_title">Story Title</string>
     <string name="post_publish">publish</string>
     <string name="sign_out">Sign Out</string>
     <string name="register_btn">Register</string>

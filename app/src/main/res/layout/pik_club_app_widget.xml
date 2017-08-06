@@ -36,16 +36,7 @@
             android:dividerHeight="2dp"
             tools:listitem="@layout/pik_list_item" />
 
-        <TextView
-            android:id="@+id/widget_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:text="@string/empty_recipe_list"
-            android:textAppearance="?android:textAppearanceLarge" />
-    </FrameLayout>
+          </FrameLayout>
 
 
 </LinearLayout>

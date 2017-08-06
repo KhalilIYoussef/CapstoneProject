@@ -52,13 +52,13 @@ public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
 //                    null);
 //            Picasso.with(context)
 //                    .load(String.valueOf(data.getString(INDEX_POST_URL)))
-//                    .into(views, R.id.tv_widget_description, new int[] {appWidgetId});
+//                    .into(views, R.id.iv_widget_image, new int[] {appWidgetId});
 //            //create an Activity upon clicking on the wiget to go to the RecipeActivity
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             //set a click listener when clicking on the widget to go to the RecipeActivity
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-            //set the adapter for our widget
+            //set the adapter for our widget pass the list items and the
             views.setRemoteAdapter(R.id.lv_posts, new Intent(context, RecipeWidgetRemoteViewsService.class));
 
 
@@ -66,7 +66,7 @@ public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
                     .addNextIntentWithParentStack(intent)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
             views.setPendingIntentTemplate(R.id.lv_posts, clickPendingIntentTemplate);
-            views.setEmptyView(R.id.lv_posts, R.id.widget_empty);
+//            views.setEmptyView(R.id.lv_posts, R.id.widget_empty);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }

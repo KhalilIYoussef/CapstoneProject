@@ -27,7 +27,7 @@
             android:name=".data.PikProvider"
             android:authorities="khaliliyoussef.capstoneproject.data"
             android:exported="false" />
-
+<!--app widget_provider reciever-->
         <receiver android:name=".widget.RecipeAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -36,7 +36,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
+                android:resource="@xml/widget_provider" />
         </receiver>
 
         <service

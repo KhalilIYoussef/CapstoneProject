@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         tools:text="Title"

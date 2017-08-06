@@ -56,7 +56,7 @@ private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     Post mPost;
     ChildEventListener mChildEventListener;
-    public static String ACTION_REMINDER="";
+    public static String ACTION_REMINDER="khaliliyoussef.capstoneproject.ACTION_REMINDER";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

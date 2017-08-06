@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
+
 import com.squareup.picasso.Picasso;
 
 import khaliliyoussef.capstoneproject.R;

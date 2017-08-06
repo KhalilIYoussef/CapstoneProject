@@ -23,8 +23,7 @@ import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.COLUMN
 import static khaliliyoussef.capstoneproject.widget.RecipeWidgetRemoteViewsService.INDEX_POST_URL;
 
 
-public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
-{
+public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider {
 
     private static final String[] RECIPE_COLUMNS =
             {
@@ -37,11 +36,10 @@ public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
 
 
     @Override
-   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // There may be multiple widgets active, so update all of them (the user can add as many widget as he like)
-        for (int appWidgetId : appWidgetIds)
-        {
+        for (int appWidgetId : appWidgetIds) {
             //notice RemoteViews because ordinary views won't work
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pik_club_app_widget);
 //           Cursor data = context.getContentResolver().query(RECIPE_CONTENT_URI,
@@ -73,13 +71,11 @@ public class RecipeAppWidgetProvider extends android.appwidget.AppWidgetProvider
     }
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
 
         super.onReceive(context, intent);
 //if you recived an Intent in which has an ACTION to update the
-        if (PikProvider.ACTION_DATA_UPDATED.equals(intent.getAction()))
-        {
+        if (PikProvider.ACTION_DATA_UPDATED.equals(intent.getAction())) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, getClass()));
 

@@ -8,25 +8,26 @@
     android:padding="@dimen/margin">
 
     <ImageView
+        android:contentDescription="@string/widget_post_image"
         android:id="@+id/iv_widget_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        tools:src="@mipmap/ic_launcher"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_widget_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        tools:text="Title"
-        android:layout_width="wrap_content" />
+        tools:text="Title" />
 
     <TextView
         android:id="@+id/tv_widget_description"
@@ -36,7 +37,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        tools:text="fdnfkdnfdnfdfdnfddfmdnf"
-        />
+        tools:text="fdnfkdnfdnfdfdnfddfmdnf" />
 
 </LinearLayout>

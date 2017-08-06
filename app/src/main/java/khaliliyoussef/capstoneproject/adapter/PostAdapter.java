@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import khaliliyoussef.capstoneproject.R;
 import khaliliyoussef.capstoneproject.data.PikContract;
 import khaliliyoussef.capstoneproject.model.Post;
 
@@ -27,13 +28,12 @@ import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.COLUMN
 /**
  * Created by Khalil on 8/3/2017.
  */
-public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
-{
+public class PostAdapter extends FirebaseRecyclerAdapter<Post, PostViewHolder> {
     List<Post> mList;
     Post mPost;
     private Context context;
-    public PostAdapter(Class<Post> modelClass, int modelLayout, Class<PostViewHolder> viewHolderClass, DatabaseReference ref, Context context)
-    {
+
+    public PostAdapter(Class<Post> modelClass, int modelLayout, Class<PostViewHolder> viewHolderClass, DatabaseReference ref, Context context) {
         super(modelClass, modelLayout, viewHolderClass, ref);
         this.context = context;
 //
@@ -63,22 +63,21 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
 //
 //            }
 //        });
-        mList=new ArrayList<>();
+        mList = new ArrayList<>();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Log.e("Count " ,""+snapshot.getChildrenCount());
-                for (DataSnapshot postSnapshot: snapshot.getChildren())
-                {
-            Post post = postSnapshot.getValue(Post.class);
-                   mList.add(post);
+                Log.e("Count ", "" + snapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Post post = postSnapshot.getValue(Post.class);
+                    mList.add(post);
                     Log.e("Get Data", post.getTitle());
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("The read failed: " ,databaseError.getMessage());
+                Log.e("The read failed: ", databaseError.getMessage());
             }
 
 
@@ -92,25 +91,20 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
         Picasso.with(context).load(model.getPhotoUrl()).into(viewHolder.postImage);
         viewHolder.ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-            if(isFavorite(position))
-            {
-                removePostFromFavorites();
-              //  viewHolder.ivFavorite.setImageDrawable(R.drawable.ic_favorite_change);
-            }
-            else
-            {
-               addPostToFavorites(position);
-              //  viewHolder.ivFavorite.setImageDrawable(R.drawable.ic_favorite_change);
-            }
+            public void onClick(View v) {
+                if (isFavorite(position)) {
+                    removePostFromFavorites();
+                    //  viewHolder.ivFavorite.setImageDrawable(R.drawable.ic_favorite_change);
+                } else {
+                    addPostToFavorites(position);
+                    //  viewHolder.ivFavorite.setImageDrawable(R.drawable.ic_favorite_change);
+                }
             }
         });
     }
 
 
-    synchronized private boolean isFavorite(int position)
-    {
+    synchronized private boolean isFavorite(int position) {
 
         //get all the recipes where its "id" equal the current recipe if the return cursor is null then it's not fav
         //if the cursor is not null then it's favorite
@@ -129,8 +123,8 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
 //               selectionArgs,
 //                null,
 //                null);
-        if(cursor!=null)
-            Toast.makeText(context, "Post added", Toast.LENGTH_SHORT).show();
+        if (cursor != null)
+            Toast.makeText(context, ""+context.getString(R.string.post_added), Toast.LENGTH_SHORT).show();
         return (cursor != null ? cursor.getCount() : 0) > 0;
     }
 
@@ -141,10 +135,9 @@ public class PostAdapter extends FirebaseRecyclerAdapter<Post,PostViewHolder>
         context.getContentResolver().delete(RECIPE_CONTENT_URI, null, null);
     }
 
-    synchronized private void addPostToFavorites(int position)
-    {
+    synchronized private void addPostToFavorites(int position) {
         //delete the old recipes (it can only save one recipe )
-       context. getContentResolver().delete(RECIPE_CONTENT_URI, null, null);
+        context.getContentResolver().delete(RECIPE_CONTENT_URI, null, null);
 //save every ingredient in the database with the recipe name and id
 
         ContentValues values = new ContentValues();

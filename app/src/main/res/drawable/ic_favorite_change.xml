@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- there are 4 states for each "view" default(unchecked) , pressed, checked, checked pressed -->
+<?xml version="1.0" encoding="utf-8"?><!-- there are 4 states for each "view" default(unchecked) , pressed, checked, checked pressed -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:drawable/btn_star_big_on" android:state_active="true" />
-    <item android:drawable="@android:drawable/btn_star_big_on" android:state_checked="true"/>
-    <item android:drawable="@android:drawable/btn_star_big_on" android:state_checked="true" android:state_pressed="true"/>
+    <item android:drawable="@android:drawable/btn_star_big_on" android:state_checked="true" />
+    <item android:drawable="@android:drawable/btn_star_big_on" android:state_checked="true" android:state_pressed="true" />
     <item android:drawable="@android:drawable/btn_star_big_off" android:state_pressed="true" />
     <item android:drawable="@android:drawable/btn_star_big_off" android:state_first="true" />
     <item android:drawable="@android:drawable/btn_star_big_off" />

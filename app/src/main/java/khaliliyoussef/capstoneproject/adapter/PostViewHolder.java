@@ -14,16 +14,19 @@ import khaliliyoussef.capstoneproject.R;
  */
 
 
-public class PostViewHolder extends RecyclerView.ViewHolder{
+public class PostViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.list_post_title)
     TextView postTitle;
     @BindView(R.id.list_post_image)
     ImageView postImage;
-    @BindView(R.id.list_post_description) TextView postDescription;
-    @BindView(R.id.ic_favorite) ImageView ivFavorite;
+    @BindView(R.id.list_post_description)
+    TextView postDescription;
+    @BindView(R.id.ic_favorite)
+    ImageView ivFavorite;
+
     public PostViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 }
 

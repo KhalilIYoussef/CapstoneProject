@@ -27,33 +27,28 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
     static final int INDEX_POST_URL = 2;
 
     private static final String[] RECIPE_COLUMNS =
-                             {
+            {
 
-                                     COLUMN_POST_NAME,
-                                     COLUMN_POST_DESCRIPTION,
-                                     COLUMN_POST_URL,
+                    COLUMN_POST_NAME,
+                    COLUMN_POST_DESCRIPTION,
+                    COLUMN_POST_URL,
 
-                             };
+            };
 
 
-
-            //take an Intent as it's parameter
+    //take an Intent as it's parameter
     @Override
-    public RemoteViewsFactory onGetViewFactory(Intent intent)
-    {
-        return new RemoteViewsFactory()
-        {
+    public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        return new RemoteViewsFactory() {
             private Cursor data = null;
 
             @Override
-            public void onCreate()
-            {
+            public void onCreate() {
 
             }
 
             @Override
-            public void onDataSetChanged()
-            {
+            public void onDataSetChanged() {
                 if (data != null) {
                     data.close();
                 }
@@ -71,8 +66,7 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
             }
 
             @Override
-            public void onDestroy()
-            {
+            public void onDestroy() {
                 if (data != null) {
                     data.close();
                     data = null;
@@ -93,9 +87,9 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
 
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.pik_list_item);
 
-                String Title=data.getString(INDEX_INDEX_POST_NAME);
+                String Title = data.getString(INDEX_INDEX_POST_NAME);
                 views.setTextViewText(R.id.tv_widget_title, Title);
-                String Description=data.getString(INDEX_POST_DESCRIPTION);
+                String Description = data.getString(INDEX_POST_DESCRIPTION);
                 views.setTextViewText(R.id.tv_widget_description, Description);
 //                views.setImageViewResource(R.id.iv_widget_image,R.mipmap.ic_launcher );
                 //String.valueOf(data.getString(INDEX_POST_URL))
@@ -110,22 +104,19 @@ public class RecipeWidgetRemoteViewsService extends RemoteViewsService {
             }
 
             @Override
-            public int getViewTypeCount()
-            {
+            public int getViewTypeCount() {
                 return 1;
             }
 
             @Override
-            public long getItemId(int position)
-            {
+            public long getItemId(int position) {
                 if (data.moveToPosition(position))
                     return 0;
                 return position;
             }
 
             @Override
-            public boolean hasStableIds()
-            {
+            public boolean hasStableIds() {
                 return true;
             }
         };

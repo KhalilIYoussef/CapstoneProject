@@ -11,4 +11,18 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="login_new_account">New Account</string>
     <string name="empty_recipe_list">No Images Yet !</string>
+    <string name="logo_description">the logo description</string>
+    <string name="image_post_description">image post description</string>
+    <string name="widget_post_image">widget image for post</string>
+    <string name="story_image_description">strory image</string>
+    <string name="favorite_image">favorite image button</string>
+    <string name="floating_content_description">add a new post</string>
+    <string name="register_your_name">your name</string>
+    <string name="register_email">email</string>
+    <string name="register_password">password</string>
+    <string name="error_loging">error logging in</string>
+    <string name="post_added">Post added</string>
+    <string name="loading">loading ..</string>
+    <string name="posting">Posting ...</string>
+    <string name="add_new">adding User ...</string>
 </resources>

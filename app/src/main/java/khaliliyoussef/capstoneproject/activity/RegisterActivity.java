@@ -1,4 +1,5 @@
 package khaliliyoussef.capstoneproject.activity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -21,25 +22,28 @@ import butterknife.ButterKnife;
 import khaliliyoussef.capstoneproject.R;
 import khaliliyoussef.capstoneproject.model.User;
 
-public class RegisterActivity extends AppCompatActivity
-{
-@BindView(R.id.ed_register_name) EditText mNameField;
-    @BindView(R.id.ed_register_email) EditText mEmailField;
-    @BindView(R.id.ed_register_password) EditText mPasswoedField;
-    @BindView(R.id.bt_register) Button mSignUp ;
+public class RegisterActivity extends AppCompatActivity {
+    @BindView(R.id.ed_register_name)
+    EditText mNameField;
+    @BindView(R.id.ed_register_email)
+    EditText mEmailField;
+    @BindView(R.id.ed_register_password)
+    EditText mPasswoedField;
+    @BindView(R.id.bt_register)
+    Button mSignUp;
     FirebaseAuth mFirebaseAuth;
     DatabaseReference mDatabaseReference;
     ProgressDialog mProgressDialog;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        mFirebaseAuth=FirebaseAuth.getInstance();
-        mDatabaseReference= FirebaseDatabase.getInstance().getReference().child("users");
-        mProgressDialog=new ProgressDialog(this);
-mProgressDialog.setMessage("adding User ...");
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(""+getString(R.string.add_new));
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,29 +53,28 @@ mProgressDialog.setMessage("adding User ...");
     }
 
     private void register() {
-        final String name,email,password;
-        name=mNameField.getText().toString();
-        email=mEmailField.getText().toString();
-        password=mPasswoedField.getText().toString();
+        final String name, email, password;
+        name = mNameField.getText().toString();
+        email = mEmailField.getText().toString();
+        password = mPasswoedField.getText().toString();
         //check if any field is not empty
-        if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(email)&&!TextUtils.isEmpty(password))
-        {
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             mProgressDialog.show();
-mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-    @Override
-    public void onComplete(@NonNull Task<AuthResult> task) {
-if(task.isSuccessful()) {//TODO (1)try to remove this
-    String userId = mFirebaseAuth.getCurrentUser().getUid();
+            mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {//TODO (1)try to remove this
+                        String userId = mFirebaseAuth.getCurrentUser().getUid();
 
-    mDatabaseReference.child(userId).setValue(new User(name, "default"));
-    mProgressDialog.dismiss();
-    Intent mainIntent =new Intent(RegisterActivity.this,MainActivity.class);
-    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    startActivity(mainIntent);
-}
+                        mDatabaseReference.child(userId).setValue(new User(name, "default"));
+                        mProgressDialog.dismiss();
+                        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(mainIntent);
+                    }
 
-    }
-});
+                }
+            });
         }
     }
 }

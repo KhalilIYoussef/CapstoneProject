@@ -23,15 +23,16 @@
         <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
+
         <provider
             android:name=".data.PikProvider"
             android:authorities="khaliliyoussef.capstoneproject.data"
             android:exported="false" />
-<!--app widget_provider reciever-->
+        <!--app widget_provider reciever-->
         <receiver android:name=".widget.RecipeAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="khaliliyoussef.capstoneproject.data.ACTION_DATA_UPDATED"/>
+                <action android:name="khaliliyoussef.capstoneproject.data.ACTION_DATA_UPDATED" />
             </intent-filter>
 
             <meta-data
@@ -44,11 +45,12 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-        <service android:name=".sync.PostJobDispatcher"
+        <service
+            android:name=".sync.PostJobDispatcher"
             android:exported="false">
-        <intent-filter>
-            <action android:name="khaliliyoussef.capstoneproject.ACTION_REMINDER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="khaliliyoussef.capstoneproject.ACTION_REMINDER" />
+            </intent-filter>
         </service>
     </application>
 

@@ -24,25 +24,28 @@ import khaliliyoussef.capstoneproject.R;
 
 public class PostActivity extends AppCompatActivity {
     private static final int RC_IMG_PICK = 2;
-    @BindView(R.id.image_post) ImageButton mPostImage;
-    @BindView(R.id.ed_post_title) EditText mPostTitle;
-   @BindView(R.id.ed_post_description) EditText mPostDescription;
-   @BindView(R.id.bt_submit) Button mSubmitBtn;
+    @BindView(R.id.image_post)
+    ImageButton mPostImage;
+    @BindView(R.id.ed_post_title)
+    EditText mPostTitle;
+    @BindView(R.id.ed_post_description)
+    EditText mPostDescription;
+    @BindView(R.id.bt_submit)
+    Button mSubmitBtn;
     Uri pickedImageUri;
-ProgressDialog mProgressDialog;
+    ProgressDialog mProgressDialog;
     private StorageReference mStorage;
     private DatabaseReference mDatabase;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         ButterKnife.bind(this);
-            mStorage=FirebaseStorage.getInstance().getReference();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("Posts");
-        mProgressDialog=new ProgressDialog(this);
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posts");
+        mProgressDialog = new ProgressDialog(this);
 
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,32 +56,31 @@ ProgressDialog mProgressDialog;
         mPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent,RC_IMG_PICK);
+                startActivityForResult(intent, RC_IMG_PICK);
             }
         });
 
     }
 
     private void publishPost() {
-        mProgressDialog.setMessage("Posting ...");
+        mProgressDialog.setMessage(""+getString(R.string.posting));
 
         //notice we used trim() to save space while saving the data
-        final String title=mPostTitle.getText().toString().trim();
-        final String description=mPostDescription.getText().toString().trim();
-        if(!title.isEmpty()&&!description.isEmpty()&&pickedImageUri!=null)
-        {
+        final String title = mPostTitle.getText().toString().trim();
+        final String description = mPostDescription.getText().toString().trim();
+        if (!title.isEmpty() && !description.isEmpty() && pickedImageUri != null) {
             mProgressDialog.show();
-StorageReference filePath =mStorage.child("blog_images").child(pickedImageUri.getLastPathSegment());
+            StorageReference filePath = mStorage.child("blog_images").child(pickedImageUri.getLastPathSegment());
             filePath.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-        Uri downloadUri=taskSnapshot.getDownloadUrl();
-                    mDatabase.push().setValue(new Post(title,description,downloadUri.toString()));
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    mDatabase.push().setValue(new Post(title, description, downloadUri.toString()));
 
                     mProgressDialog.dismiss();
-                    startActivity(new Intent(PostActivity.this,MainActivity.class));
+                    startActivity(new Intent(PostActivity.this, MainActivity.class));
                 }
             });
         }
@@ -87,9 +89,8 @@ StorageReference filePath =mStorage.child("blog_images").child(pickedImageUri.ge
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RC_IMG_PICK&&resultCode==RESULT_OK)
-        {
-          pickedImageUri=data.getData();
+        if (requestCode == RC_IMG_PICK && resultCode == RESULT_OK) {
+            pickedImageUri = data.getData();
             //each time you pick it you display it
             mPostImage.setImageURI(pickedImageUri);
         }

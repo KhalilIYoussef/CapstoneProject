@@ -18,20 +18,17 @@ import static khaliliyoussef.capstoneproject.data.PikContract.RECIPE_CONTENT_URI
 import static khaliliyoussef.capstoneproject.data.PikContract.RecipeEntry.POST_TABLE;
 
 
-public class PikProvider extends ContentProvider
-{
+public class PikProvider extends ContentProvider {
     private PikDbHelper mOpenHelper;
     public static final int CODE_RECIPE = 100;
     public static final int CODE_RECIPE_WITH_ID = 101;
-//if any Update happen to the Database use this string to identify the broadcast
+    //if any Update happen to the Database use this string to identify the broadcast
     public static final String ACTION_DATA_UPDATED = "khaliliyoussef.capstoneproject.data.ACTION_DATA_UPDATED";
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
 
-
-    public static UriMatcher buildUriMatcher()
-    {
+    public static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(CONTENT_AUTHORITY, PATH_POST, CODE_RECIPE);
         uriMatcher.addURI(CONTENT_AUTHORITY, PATH_POST + "/#", CODE_RECIPE_WITH_ID);
@@ -131,8 +128,7 @@ public class PikProvider extends ContentProvider
         if (null == selection)
             selection = "1";
 
-        switch (sUriMatcher.match(uri))
-        {
+        switch (sUriMatcher.match(uri)) {
             case CODE_RECIPE_WITH_ID:
                 numberOfDeletedIngredients = db.delete(POST_TABLE,
                         selection,

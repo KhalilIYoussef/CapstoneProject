@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/widget_margin">
+    android:layout_margin="@dimen/widget_margin"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/widget"
@@ -18,8 +18,7 @@
             android:contentDescription="@string/app_name"
             android:text="@string/app_name"
             android:textSize="24dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
     </FrameLayout>
 
     <FrameLayout
@@ -32,11 +31,11 @@
             android:id="@+id/lv_posts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:listDivider="?android:attr/listDivider"
             android:dividerHeight="2dp"
+            android:listDivider="?android:attr/listDivider"
             tools:listitem="@layout/pik_list_item" />
 
-          </FrameLayout>
+    </FrameLayout>
 
 
 </LinearLayout>

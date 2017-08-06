@@ -17,6 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +41,7 @@ import khaliliyoussef.capstoneproject.adapter.PostAdapter;
 import khaliliyoussef.capstoneproject.adapter.PostViewHolder;
 import khaliliyoussef.capstoneproject.data.PikContract.*;
 import khaliliyoussef.capstoneproject.model.Post;
+import khaliliyoussef.capstoneproject.sync.PostJobDispatcher;
 
 import static khaliliyoussef.capstoneproject.data.PikContract.RECIPE_CONTENT_URI;
 
@@ -47,6 +56,7 @@ private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     Post mPost;
     ChildEventListener mChildEventListener;
+    public static String ACTION_REMINDER="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +117,34 @@ Intent loginIntent =new Intent(MainActivity.this,LoginActivity.class);
 
             }
         });
+
+        //using the Firebase Job Dispatcher
+        Driver driver = new GooglePlayDriver(this);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        Job myJob = dispatcher.newJobBuilder()
+                // the JobService that will be called
+                .setService(PostJobDispatcher.class)
+                // uniquely identifies the job
+                .setTag("complex-job")
+                // one-off job
+                .setRecurring(false)
+                // don't persist past a device reboot
+                .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                // start between 0 and 15 minutes (900 seconds)
+                .setTrigger(Trigger.executionWindow(0, 900))
+                // overwrite an existing job with the same tag
+                .setReplaceCurrent(true)
+                // retry with exponential backoff
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                // constraints that need to be satisfied for the job to run
+                .setConstraints(
+                        // only run on an unmetered network
+                        Constraint.ON_UNMETERED_NETWORK,
+                        // only run when the device is charging
+                        Constraint.DEVICE_CHARGING
+                )
+                .build();
     }
 
 
